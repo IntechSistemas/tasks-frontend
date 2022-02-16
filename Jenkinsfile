@@ -14,6 +14,7 @@ pipeline {
         stage ('Deploy') {
             steps {
                 bat 'echo Deploy'
+                deploy adapters: [tomcat8(credentialsId: 'tomcat-login', path: '', url: 'http://localhost:8001/')], contextPath: 'tasks-backend', war: 'target/tasks-backend.war'
             }
         }
             
