@@ -3,7 +3,7 @@ pipeline {
     parameters {
         choice(
             choices: ['deployPre', 'deployPro'],
-            description: '',
+            description: 'Escolha',
             name: 'REQUESTED_ACTION'
         )
     }
