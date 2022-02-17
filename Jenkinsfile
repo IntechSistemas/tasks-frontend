@@ -16,13 +16,6 @@ pipeline {
          
                 bat 'mvn clean package -DskipTests=true'
             }
-            when {
-                expression { params.REQUESTED_ACTION == 'deployPro'}    
-            }
-            steps {
-         
-               echo 'Tentativa em Prod'
-            }
         } 
         stage ('Deploy') {
             when {
@@ -31,14 +24,16 @@ pipeline {
             steps {
                 bat 'echo Deploy'
                 deploy adapters: [tomcat8(credentialsId: 'tomcat-login', path: '', url: 'http://localhost:8001/')], contextPath: 'tasks', war: 'target/tasks.war'
-            }
+            }        
+        }
+        stage ('Prod') {
             when {
                 expression { params.REQUESTED_ACTION == 'deployPro'}    
             }
             steps {
          
-                echo 'tentativa em prod'
-            }
+               echo 'Tentativa em Prod'
+            }    
         }
     }
 }
